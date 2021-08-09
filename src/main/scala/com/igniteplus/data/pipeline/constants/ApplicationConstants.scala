@@ -1,17 +1,19 @@
-package com.ignitrplus.data.pipeline.constants
-import com.ignitrplus.data.pipeline.util.ApplicationUtil.createSparkSession
+package com.igniteplus.data.pipeline.constants
+import com.igniteplus.data.pipeline.util.ApplicationUtil.{createSparkSession, getSparkConf}
+import org.apache.spark.SparkConf
+import org.apache.spark.sql.SparkSession
 
 
 object ApplicationConstants {
 
   //SPARK_SESSION
   val SPARK_CONF_FILE_NAME = "spark.conf"
-  val SPARK_CONF = getSparkConf(SPARK_CONF_FILE_NAME)
-  implicit val spark = createSparkSession(SPARK_CONF)
+  val SPARK_CONF: SparkConf = getSparkConf(SPARK_CONF_FILE_NAME)
+  implicit val spark: SparkSession = createSparkSession(SPARK_CONF)
 
   //DATASET
-  val CLICKSTREAM_DATASET: String = "data/input02/clickstream/clickstream_log.csv"
-  val ITEM_DATASET: String = "data/input02/item/item_data.csv"
+  val CLICKSTREAM_DATASET: String = "data/input/clickstream/clickstream_log.csv"
+  val ITEM_DATASET: String = "data/input/item/item_data.csv"
 
   //null values writing path
   val CLICKSTREAM_NULL_ROWS_DATASET_PATH: String ="data/output/pipeline-failures/clickstream_null_values"
@@ -48,5 +50,7 @@ object ApplicationConstants {
   //Lowercase column
   val COLUMNS_LOWERCASE_CLICKSTREAM: Seq[String] = Seq(ApplicationConstants.REDIRECTION_SOURCE)
   val COLUMNS_LOWERCASE_ITEM: Seq[String] = Seq(ApplicationConstants.DEPARTMENT_NAME)
+
+  val FAILURE_EXIT_CODE:Int = 1
 
 }
