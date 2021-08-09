@@ -11,7 +11,7 @@ object ApplicationUtil{
   /**
    * READING SPARK CONFIGURATIONS FROM A SEPERATE FILE
    * @param fileName where you've mentioned the spark configuration
-   * @return sparkConf object
+   * @return sparkConf object which can be passed as a parameter to  createSparkSession
    */
   def getSparkConf(fileName: String): SparkConf ={
     val sparkAppConf = new SparkConf()
