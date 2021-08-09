@@ -1,12 +1,7 @@
 package com.igniteplus.data.pipeline.util
 
-import org.apache.spark.SparkConf
-import org.apache.spark.sql.SparkSession
-import java.util.Properties
-import scala.collection.JavaConverters._
-import scala.io.Source
-
 object ApplicationUtil{
+<<<<<<< HEAD
 
   /**
    * READING SPARK CONFIGURATIONS FROM A SEPERATE FILE
@@ -31,4 +26,6 @@ object ApplicationUtil{
     spark
   }
 
+=======
+>>>>>>> parent of dddd6f6 (Added spark.conf file and updated ApplicationUtil)
 }
