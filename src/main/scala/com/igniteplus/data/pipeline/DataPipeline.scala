@@ -6,12 +6,28 @@ import com.igniteplus.data.pipeline.service.FileReaderService
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 
-object DataPipeline {
+object DataPipeline extends Logging {
 
   def main(args: Array[String]): Unit = {
+    
+    val logger : internal.Logger = LoggerFactory.getLogger(this.getClass)
 
-   implicit  val spark:SparkSession = SparkSession.builder().master("local[*]").appName("DataPipeline").getOrCreate()
+    try {
+            val pipeline = PipeLineService.executePipeLine()
+       }
 
+   catch {
+     case ex: FileReadException =>
+       logError("File read exception",ex)
 
+     case ex: FileWriteException =>
+       logError("file write exception", ex)
+
+     case ex: Exception =>
+         logError("Unknown exception",ex)
+
+       sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
+   }
   }
+    
 }
