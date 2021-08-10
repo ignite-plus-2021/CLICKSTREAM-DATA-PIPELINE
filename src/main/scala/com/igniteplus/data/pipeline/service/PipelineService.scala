@@ -1,7 +1,6 @@
 package com.igniteplus.data.pipeline.service
 
-import com.igniteplus.data.pipeline.cleanseData.cleanData
-import com.igniteplus.data.pipeline.cleanseData.cleanData.filterRemoveNull
+import com.igniteplus.data.pipeline.cleanseData.CleanData.filterRemoveNull
 import com.igniteplus.data.pipeline.constants.ApplicationConstants.{CLICKSTREAM_DATASET, CLICKSTREAM_NULL_ROWS_DATASET_PATH, COLUMNS_PRIMARY_KEY_CLICKSTREAM, COLUMNS_PRIMARY_KEY_ITEM, ITEM_DATASET, ITEM_NULL_ROWS_DATASET_PATH, READ_FORMAT, SPARK_CONF, WRITE_FORMAT}
 import com.igniteplus.data.pipeline.service.FileReaderService.readFile
 import com.igniteplus.data.pipeline.util.ApplicationUtil.createSparkSession
