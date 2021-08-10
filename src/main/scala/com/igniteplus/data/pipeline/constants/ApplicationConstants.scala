@@ -12,8 +12,10 @@ object ApplicationConstants {
   implicit val spark: SparkSession = createSparkSession(SPARK_CONF)
 
   //DATASET
-  val CLICKSTREAM_DATASET: String = "data/input/clickstream/clickstream_log.csv"
-  val ITEM_DATASET: String = "data/input/item/item_data.csv"
+  val CLICKSTREAM_DATASET: String = "data/Input/clickstream/clickstream_log.csv"
+  val ITEM_DATASET: String = "data/Input/item/item_data.csv"
+  val INPUT_NULL_CLICKSTREAM_DATA : String = "data/Output/Pipeline-failures/NullClickstreamData"
+  val INPUT_NULL_ITEM_DATA : String = "data/Output/Pipeline-failures/NullItemData"
 
   //null values writing path
   val CLICKSTREAM_NULL_ROWS_DATASET_PATH: String ="data/output/pipeline-failures/clickstream_null_values"
@@ -44,7 +46,7 @@ object ApplicationConstants {
   val NEW_DATATYPE_ITEM:Seq[String]= Seq("float")
 
   //Primary key
-  val COLUMNS_PRIMARY_KEY_CLICKSTREAM: Seq[String] = Seq(ApplicationConstants.SESSION_ID, ApplicationConstants.ITEM_ID)
+  val COLUMNS_PRIMARY_KEY_CLICKSTREAM: Seq[String] = Seq(ApplicationConstants.SESSION_ID,ApplicationConstants.ITEM_ID)
   val COLUMNS_PRIMARY_KEY_ITEM: Seq[String] = Seq(ApplicationConstants.ITEM_ID)
 
   //Lowercase column
