@@ -92,7 +92,6 @@ object CleanData {
      * CONVERT TO LOWER CASE
      * @param df
      * @param columnToBeModified
-     * @param columnToBeNamed
      * @return a modified Dataframe with modified case
      */
     def toLowerCase(df: DataFrame, columnTobeModified: Seq[String]): DataFrame = {
