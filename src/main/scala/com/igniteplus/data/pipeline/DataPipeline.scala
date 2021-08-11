@@ -21,13 +21,14 @@ object DataPipeline extends Logging {
    catch {
      case ex : FileReadException =>
        logError("File read exception",ex)
+       sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
 
      case ex: FileWriteException =>
        logError("file write exception", ex)
+       sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
 
      case ex: Exception =>
-         logError("Unknown exception",ex)
-
+       logError("Unknown exception",ex)
        sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
    }
   }
