@@ -10,7 +10,7 @@ import com.sun.org.slf4j.internal
 
 object DataPipeline extends Logging {
 
-  def main(args: Array[String]): Unit = {
+  def main(args : Array[String]) : Unit = {
     
     val logger : internal.Logger = LoggerFactory.getLogger(this.getClass)
 
@@ -19,7 +19,7 @@ object DataPipeline extends Logging {
        }
 
    catch {
-     case ex: FileReadException =>
+     case ex : FileReadException =>
        logError("File read exception",ex)
 
      case ex: FileWriteException =>
