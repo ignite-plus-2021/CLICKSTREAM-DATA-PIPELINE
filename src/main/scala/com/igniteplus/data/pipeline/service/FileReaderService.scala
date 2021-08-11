@@ -6,12 +6,12 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 object FileReaderService {
   /**
    * Reads the contents of the file
-   * @param filePath specifies the path from where the data is to read
-   * @param fileType specifies the format of the file
+   * @param inputPath specifies the path from where the data is to read
+   * @param fileFormat specifies the format of the file
    * @param spark
    * @return the contents read from the file
    */
-    def readFile(path:String,
+    def readFile(inputPath:String,
                  fileFormat:String)
                 (implicit spark:SparkSession): DataFrame = {
 
@@ -21,11 +21,11 @@ object FileReaderService {
               .option("header","true")
               .option("timestampFormat", "yyyy-MM-dd HH:mm")
               .format(fileFormat)
-              .load(path)
+              .load(inputPath)
           }
           catch {
             case e: Exception =>
-              FileReadException("Unable to read file from the given location " + path)
+              FileReadException("Unable to read file from the given location " + inputPath)
               spark.emptyDataFrame
 
           }
@@ -34,7 +34,7 @@ object FileReaderService {
 
         if(dfDataCount == 0) {
 
-          throw FileReadException("The input file is empty " + path)
+          throw FileReadException("The input file is empty " + inputPath)
 
         }
 

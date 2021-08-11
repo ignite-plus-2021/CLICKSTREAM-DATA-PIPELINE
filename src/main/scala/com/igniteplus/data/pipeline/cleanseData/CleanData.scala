@@ -54,7 +54,7 @@ object CleanData
       case Some(orderCol) => {
         val windowSpec = Window.partitionBy(primaryKeyColumns.map(col): _*).orderBy(desc(orderCol))
         df.withColumn(colName = ROW_NUMBER, row_number().over(windowSpec))
-          .filter(conditionExpr = ROW_CONDITION).drop(ROW_NUMBER)
+          .filter( col(ROW_NUMBER) === 1).drop(ROW_NUMBER)
       }
       case _ => df.dropDuplicates(primaryKeyColumns)
     }
