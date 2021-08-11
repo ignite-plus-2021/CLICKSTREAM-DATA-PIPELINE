@@ -36,10 +36,15 @@ object ApplicationConstants {
   val DEPARTMENT_NAME: String = "department_name"
   val ITEM_PRICE: String = "item_price"
 
+  //timestamp datatype and timestamp format for changing datatype
+  val TIMESTAMP_DATATYPE: String = "timestamp"
+  val TTIMESTAMP_FORMAT: String = "MM/dd/yyyy H:mm"
+
 
   //column for Changing DATATYPE
   val COLUMNS_VALID_DATATYPE_CLICKSTREAM: Seq[String] = Seq(ApplicationConstants.EVENT_TIMESTAMP)
   val COLUMNS_VALID_DATATYPE_ITEM: Seq[String] = Seq(ApplicationConstants.ITEM_PRICE)
+
 
   //new DATATYPE
   val NEW_DATATYPE_CLICKSTREAM:Seq[String]= Seq("timestamp")
@@ -54,5 +59,8 @@ object ApplicationConstants {
   val COLUMNS_LOWERCASE_ITEM: Seq[String] = Seq(ApplicationConstants.DEPARTMENT_NAME)
 
   val FAILURE_EXIT_CODE:Int = 1
+
+  val ROW_NUMBER:String = "row_number"
+  val ROW_CONDITION:String = "row_number == 1"
 
 }
