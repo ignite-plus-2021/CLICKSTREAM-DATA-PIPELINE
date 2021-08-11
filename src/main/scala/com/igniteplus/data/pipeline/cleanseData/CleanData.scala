@@ -18,7 +18,6 @@ import org.apache.spark.sql.functions.{col, unix_timestamp}
 object CleanData {
   /**
    * Function to remove and filter null values and write null values to separate file
-   *
    * @param df             the dataframe taken as an input
    * @param primaryColumns sequence of primary key columns
    * @param filePath       the location where null values will be written
@@ -36,7 +35,6 @@ object CleanData {
       writeFile(nullDf, fileFormat, filePath)
     notNullDf
   }
-
 
   /**
    * Function to remove duplicates from the data
