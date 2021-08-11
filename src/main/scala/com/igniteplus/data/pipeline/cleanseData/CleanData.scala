@@ -12,14 +12,14 @@ import org.apache.spark.sql.DataFrame
 
 object CleanData {
 
+  /**
+   * Function to to change the data type of the columns to correct datatype
+   * @param df the dataframe
+   * @param colName sequence of columns of the df dataframe
+   * @param dt sequence of data types
+   * @return dataframe with updated data type
+   */
   def dataTypeValidation(df:DataFrame,colName:Seq[String], dt:Seq[String]): DataFrame = {
-    /**
-     * Function to to change the data type of the columns to correct datatype
-     * @param df the dataframe
-     * @param colName sequence of columns of the df dataframe
-     * @param dt sequence of data types
-     * @return dataframe with updated data type
-     */
     var dfChangedDataType = df
     for (i <- colName.indices) {
       if (dt(i) == TIMESTAMP_DATATYPE)
