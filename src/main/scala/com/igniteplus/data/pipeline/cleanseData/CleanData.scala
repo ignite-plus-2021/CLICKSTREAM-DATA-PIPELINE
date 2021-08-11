@@ -1,10 +1,17 @@
 package com.igniteplus.data.pipeline.cleanseData
 
+
 import com.igniteplus.data.pipeline.constants.ApplicationConstants.{ROW_CONDITION, ROW_NUMBER}
 import com.igniteplus.data.pipeline.service.FileWriterService.writeFile
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.functions.{col, desc, row_number}
+
+import com.igniteplus.data.pipeline.constants.ApplicationConstants.{TIMESTAMP_DATATYPE, TTIMESTAMP_FORMAT}
+import com.igniteplus.data.pipeline.service.FileWriterService.writeFile
+import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.functions.{col, unix_timestamp}
+
 
 object CleanData
 {
@@ -29,23 +36,35 @@ object CleanData
     notNullDf
   }
 
+
   def removeDuplicates (df:DataFrame ,
                         primaryKeyColumns : Seq[String],
                         orderByCol: Option[String]
                        ) : DataFrame  = {
 
-    val dfDropDuplicates:DataFrame = orderByCol match {
+    val dfDropDuplicates: DataFrame = orderByCol match {
       case Some(orderCol) => {
-                              val windowSpec = Window.partitionBy(primaryKeyColumns.map(col):_* ).orderBy(desc(orderCol))
-                              df.withColumn(colName =ROW_NUMBER, row_number().over(windowSpec))
-                                .filter(conditionExpr = ROW_CONDITION ).drop(ROW_NUMBER)
-                              }
+        val windowSpec = Window.partitionBy(primaryKeyColumns.map(col): _*).orderBy(desc(orderCol))
+        df.withColumn(colName = ROW_NUMBER, row_number().over(windowSpec))
+          .filter(conditionExpr = ROW_CONDITION).drop(ROW_NUMBER)
+      }
       case _ => df.dropDuplicates(primaryKeyColumns)
     }
 
     dfDropDuplicates
+  }
 
 
+
+  def dataTypeValidation(df:DataFrame,colName:Seq[String], dt:Seq[String]): DataFrame = {
+    var dfChangedDataType = df
+    for (i <- colName.indices) {
+      if (dt(i) == TIMESTAMP_DATATYPE)
+        dfChangedDataType = dfChangedDataType.withColumn(colName(i), unix_timestamp(col(colName(i)), TTIMESTAMP_FORMAT).cast(TIMESTAMP_DATATYPE))
+      else
+        dfChangedDataType = dfChangedDataType.withColumn(colName(i), col(colName(i)).cast(dt(i)))
+    }
+    dfChangedDataType
   }
 
 }
