@@ -90,7 +90,6 @@ object CleanData {
 
     /**
      * CONVERT TO LOWER CASE
-     *
      * @param inputDF
      * @param columnToBeModified
      * @param columnToBeNamed
@@ -98,8 +97,8 @@ object CleanData {
      */
     def toLowerCase(df: DataFrame, columnTobeModified: Seq[String]): DataFrame = {
       var dfLowerCase: DataFrame = df
-      for (i <- columnTobeModified) {
-        dfLowerCase = dfLowerCase.withColumn(df(i).toString(), lower(col(df(i).toString())))
+      for (columnToModify <- columnTobeModified) {
+        dfLowerCase = dfLowerCase.withColumn(df(columnToModify).toString(),lower(col(df(columnToModify).toString())))
       }
       dfLowerCase
     }
