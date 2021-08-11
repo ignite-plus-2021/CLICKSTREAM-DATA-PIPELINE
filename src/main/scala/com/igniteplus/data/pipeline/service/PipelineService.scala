@@ -19,24 +19,27 @@ object PipelineService
     /**************** READING OF ITEM DATA ************************************************************ */
     val itemDataDf: DataFrame = readFile(ITEM_DATASET, READ_FORMAT)
 
-    /************************** change datatype *****************************************************/
+
+    /************************** CHANGE DATATYPE *****************************************************/
     val changedDatatypeClickStreamDataDf = dataTypeValidation(clickStreamDataDf, COLUMNS_VALID_DATATYPE_CLICKSTREAM,NEW_DATATYPE_CLICKSTREAM,CLICKSTREAM_DATA_TYPE_DATASET)
     val changedDatatype = dataTypeValidation(itemDataDf, COL_DATANAME_LOGDATA, DATATYPE_LOGDATA)
 
-    /************************** trim columns ********************************************************/
+
+    /************************** TRIM COLUMNS ********************************************************/
     val trimmedClickStreamDataDf = trimColumn(changedDatatypeClickStreamDataDf)
     val trimmedItemDf = trimColumn(changedDatatype)
+
 
     /***************** NULL VALUE CHECKING *********************************************************** */
     val nullValueCheckClickStreamDataDf: DataFrame = filterRemoveNull(trimmedClickStreamDataDf, COLUMNS_PRIMARY_KEY_CLICKSTREAM, CLICKSTREAM_NULL_ROWS_DATASET_PATH, WRITE_FORMAT)
     val nullValueCheckItemDf: DataFrame = filterRemoveNull(trimmedItemDf, COLUMNS_PRIMARY_KEY_ITEM, ITEM_NULL_ROWS_DATASET_PATH, WRITE_FORMAT)
 
-    /**************************** deduplication *******************************************************************/
+    /**************************** DEDUPLICAION *******************************************************************/
     val dedupliactedClickStreamDataDf = removeDuplicates(nullValueCheckClickStreamDataDf,COLUMNS_PRIMARY_KEY_CLICKSTREAM,Some(EVENT_TIMESTAMP_OPTION))
     val deduplicatedItemDf = removeDuplicates(nullValueCheckItemDf,COLUMNS_PRIMARY_KEY_ITEM,None)
 
 
-    /*************************** change to lower case ***************************************************************/
+    /*************************** CHANGE TO LOWER CASE ***************************************************************/
     val lowerCaseClickStreamDataDf = toLowerCase(dedupliactedClickStreamDataDf,COLUMNS_LOWERCASE_CLICKSTREAM)
     val lowerCaseItemDf = toLowerCase(deduplicatedItemDf,COLUMNS_LOWERCASE_ITEM)
 
