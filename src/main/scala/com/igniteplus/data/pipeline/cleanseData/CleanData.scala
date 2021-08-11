@@ -67,9 +67,7 @@ object CleanData {
    * @param orderByColumn
    * @return dataframe with no duplicates
    */
-
-  def removeDuplicates (df:DataFrame , primaryKeyColumns : Seq[String], orderByColumn: Option[String]) : DataFrame  = {
-
+    
     def removeDuplicates(df: DataFrame,
                          primaryKeyColumns: Seq[String],
                          orderByColumn: Option[String]
@@ -87,24 +85,7 @@ object CleanData {
       dfDropDuplicates
     }
 
-    /**
-     * Function to to change the data type of the columns to correct datatype
-     *
-     * @param df      the dataframe
-     * @param colName sequence of columns of the df dataframe
-     * @param dt      sequence of data types
-     * @return dataframe with updated data type
-     */
-    def dataTypeValidation(df: DataFrame, colName: Seq[String], dt: Seq[String]): DataFrame = {
-      var dfChangedDataType = df
-      for (i <- colName.indices) {
-        if (dt(i) == TIMESTAMP_DATATYPE)
-          dfChangedDataType = dfChangedDataType.withColumn(colName(i), unix_timestamp(col(colName(i)), TTIMESTAMP_FORMAT).cast(TIMESTAMP_DATATYPE))
-        else
-          dfChangedDataType = dfChangedDataType.withColumn(colName(i), col(colName(i)).cast(dt(i)))
-      }
-      dfChangedDataType
-    }
+
 
 
     /**
