@@ -39,10 +39,18 @@ object CleanData
 
   def removeDuplicates (df:DataFrame ,
                         primaryKeyColumns : Seq[String],
-                        orderByCol: Option[String]
+                        orderByColumn: Option[String]
                        ) : DataFrame  = {
 
-    val dfDropDuplicates: DataFrame = orderByCol match {
+    /**
+     * Function to remove duplicates from the data
+     * @param df the dataframe
+     * @param primaryKeyColumns sequence of primary key columns of the df dataframe
+     * @param orderByColumn
+     * @return dataframe with no duplicates
+     */
+
+    val dfDropDuplicates: DataFrame = orderByColumn match {
       case Some(orderCol) => {
         val windowSpec = Window.partitionBy(primaryKeyColumns.map(col): _*).orderBy(desc(orderCol))
         df.withColumn(colName = ROW_NUMBER, row_number().over(windowSpec))
@@ -57,6 +65,13 @@ object CleanData
 
 
   def dataTypeValidation(df:DataFrame,colName:Seq[String], dt:Seq[String]): DataFrame = {
+    /**
+     * Function to to change the data type of the columns to correct datatype
+     * @param df the dataframe
+     * @param colName sequence of columns of the df dataframe
+     * @param dt sequence of data types
+     * @return dataframe with updated data type
+     */
     var dfChangedDataType = df
     for (i <- colName.indices) {
       if (dt(i) == TIMESTAMP_DATATYPE)

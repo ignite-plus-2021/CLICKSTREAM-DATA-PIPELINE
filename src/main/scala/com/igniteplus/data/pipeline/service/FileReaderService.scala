@@ -34,7 +34,7 @@ object FileReaderService {
 
         if(dfDataCount == 0) {
 
-          throw FileReadException("No files read by the file reader " + path)
+          throw FileReadException("The input file is empty " + path)
 
         }
 
