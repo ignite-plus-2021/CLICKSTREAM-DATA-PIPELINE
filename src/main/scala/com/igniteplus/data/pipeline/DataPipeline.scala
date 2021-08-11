@@ -15,7 +15,7 @@ object DataPipeline extends Logging {
     val logger : internal.Logger = LoggerFactory.getLogger(this.getClass)
 
     try {
-           PipelineService.pipelineService()
+           PipelineService.executePipeline()
        }
 
    catch {

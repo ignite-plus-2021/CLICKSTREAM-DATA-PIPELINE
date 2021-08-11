@@ -1,7 +1,7 @@
 package com.igniteplus.data.pipeline.service
 
 import com.igniteplus.data.pipeline.cleanse.Cleanser.{dataTypeValidation, filterRemoveNull, removeDuplicates, trimColumn}
-import com.igniteplus.data.pipeline.constants.ApplicationConstants.{CLICKSTREAM_DATASET, CLICKSTREAM_NULL_ROWS_DATASET_PATH, COLUMNS_LOWERCASE_CLICKSTREAM, COLUMNS_LOWERCASE_ITEM, COLUMNS_PRIMARY_KEY_CLICKSTREAM, COLUMNS_PRIMARY_KEY_ITEM, COLUMNS_VALID_DATATYPE_CLICKSTREAM, EVENT_TIMESTAMP_OPTION, ITEM_DATASET, ITEM_NULL_ROWS_DATASET_PATH, NEW_DATATYPE_CLICKSTREAM, READ_FORMAT, SPARK_CONF, WRITE_FORMAT}
+import com.igniteplus.data.pipeline.constants.ApplicationConstants.{CLICKSTREAM_DATASET, CLICKSTREAM_NULL_ROWS_DATASET_PATH, COLUMNS_LOWERCASE_CLICKSTREAM, COLUMNS_LOWERCASE_ITEM, COLUMNS_PRIMARY_KEY_CLICKSTREAM, COLUMNS_PRIMARY_KEY_ITEM, COLUMNS_VALID_DATATYPE_CLICKSTREAM, COLUMNS_VALID_DATATYPE_ITEM, EVENT_TIMESTAMP_OPTION, ITEM_DATASET, ITEM_NULL_ROWS_DATASET_PATH, NEW_DATATYPE_CLICKSTREAM, NEW_DATATYPE_ITEM, READ_FORMAT, SPARK_CONF, WRITE_FORMAT}
 import com.igniteplus.data.pipeline.service.FileReaderService.readFile
 import com.igniteplus.data.pipeline.util.ApplicationUtil.createSparkSession
 import jodd.util.StringUtil.toLowerCase
@@ -9,7 +9,7 @@ import org.apache.spark.sql.DataFrame
 
 object PipelineService
 {
-  def pipelineService() : Unit = {
+  def executePipeline() : Unit = {
 
     //IMPLICIT VALUE OF SPARK
     implicit val spark = createSparkSession(SPARK_CONF)
@@ -21,8 +21,8 @@ object PipelineService
 
 
     /************************** CHANGE DATATYPE *****************************************************/
-    val changedDatatypeClickStreamDataDf = dataTypeValidation(clickStreamDataDf, COLUMNS_VALID_DATATYPE_CLICKSTREAM,NEW_DATATYPE_CLICKSTREAM,CLICKSTREAM_DATA_TYPE_DATASET)
-    val changedDatatype = dataTypeValidation(itemDataDf, COL_DATANAME_LOGDATA, DATATYPE_LOGDATA)
+    val changedDatatypeClickStreamDataDf = dataTypeValidation(clickStreamDataDf, COLUMNS_VALID_DATATYPE_CLICKSTREAM,NEW_DATATYPE_CLICKSTREAM)
+    val changedDatatype = dataTypeValidation(itemDataDf, COLUMNS_VALID_DATATYPE_ITEM, NEW_DATATYPE_ITEM)
 
 
     /************************** TRIM COLUMNS ********************************************************/
