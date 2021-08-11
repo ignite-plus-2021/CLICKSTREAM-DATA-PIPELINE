@@ -1,7 +1,9 @@
 package com.igniteplus.data.pipeline.cleanseData
 
+import com.igniteplus.data.pipeline.constants.ApplicationConstants.{TIMESTAMP_DATATYPE, TTIMESTAMP_FORMAT}
 import com.igniteplus.data.pipeline.service.FileWriterService.writeFile
 import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.functions.{col, unix_timestamp}
 
 object CleanData
 {
@@ -24,6 +26,18 @@ object CleanData
     if(nullDf.count() > 0)
       writeFile(nullDf, fileFormat, filePath)
     notNullDf
+  }
+
+
+  def dataTypeValidation(df:DataFrame,colName:Seq[String], dt:Seq[String]): DataFrame = {
+    var dfChangedDataType = df
+    for (i <- colName.indices) {
+      if (dt(i) == TIMESTAMP_DATATYPE)
+        dfChangedDataType = dfChangedDataType.withColumn(colName(i), unix_timestamp(col(colName(i)), TTIMESTAMP_FORMAT).cast(TIMESTAMP_DATATYPE))
+      else
+        dfChangedDataType = dfChangedDataType.withColumn(colName(i), col(colName(i)).cast(dt(i)))
+    }
+    dfChangedDataType
   }
 
 }
