@@ -1,4 +1,4 @@
-package com.igniteplus.data.pipeline.cleanseData
+package com.igniteplus.data.pipeline.cleanse
 
 
 import com.igniteplus.data.pipeline.constants.ApplicationConstants.{ROW_CONDITION, ROW_NUMBER}
@@ -10,22 +10,22 @@ import org.apache.spark.sql.DataFrame
 
 
 
-object CleanData {
+object Cleanser {
 
   /**
    * Function to to change the data type of the columns to correct datatype
    * @param df the dataframe
-   * @param colName sequence of columns of the df dataframe
-   * @param dt sequence of data types
+   * @param columnNames sequence of columns of the df dataframe
+   * @param dataTypes sequence of data types
    * @return dataframe with updated data type
    */
-  def dataTypeValidation(df:DataFrame,colName:Seq[String], dt:Seq[String]): DataFrame = {
+  def dataTypeValidation(df:DataFrame,columnNames:Seq[String], dataTypes:Seq[String]): DataFrame = {
     var dfChangedDataType = df
-    for (i <- colName.indices) {
-      if (dt(i) == TIMESTAMP_DATATYPE)
-        dfChangedDataType = dfChangedDataType.withColumn(colName(i), unix_timestamp(col(colName(i)), TTIMESTAMP_FORMAT).cast(TIMESTAMP_DATATYPE))
+    for (i <- columnNames.indices) {
+      if (dataTypes(i) == TIMESTAMP_DATATYPE)
+        dfChangedDataType = dfChangedDataType.withColumn(columnNames(i), unix_timestamp(col(columnNames(i)), TTIMESTAMP_FORMAT).cast(TIMESTAMP_DATATYPE))
       else
-        dfChangedDataType = dfChangedDataType.withColumn(colName(i), col(colName(i)).cast(dt(i)))
+        dfChangedDataType = dfChangedDataType.withColumn(columnNames(i), col(columnNames(i)).cast(dataTypes(i)))
     }
     dfChangedDataType
   }
