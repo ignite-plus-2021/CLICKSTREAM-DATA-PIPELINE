@@ -91,11 +91,14 @@ object CleanData {
    * @param columnToBeNamed
    * @return a modified Dataframe with modified case
    */
-  def convertToLowerCase(inputDF: DataFrame, columnToBeModified: String, columnToBeNamed: String): DataFrame = {
-    val consistentNames: DataFrame = inputDF.withColumn(columnToBeNamed, lower(col(columnToBeModified)))
-    consistentNames
+    def toLowerCase(df:DataFrame, columnTobeModified:Seq[String]):DataFrame = {
+    var dfLowerCase:DataFrame = df
+    for(i <- columnTobeModified)
+    {
+      dfLowerCase = dfLowerCase.withColumn(df(i).toString(), lower(col(df(i).toString())))
+    }
+    dfLowerCase
   }
-
 
 }
 
