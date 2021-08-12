@@ -1,4 +1,4 @@
-package com.igniteplus.data.pipeline.Exception
+package com.igniteplus.data.pipeline.exception
 
 
   class ApplicationExceptions(message: String, cause: Throwable) extends Exception(message,cause){

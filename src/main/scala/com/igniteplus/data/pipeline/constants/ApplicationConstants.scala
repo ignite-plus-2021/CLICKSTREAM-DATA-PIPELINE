@@ -61,6 +61,8 @@ object ApplicationConstants {
   val FAILURE_EXIT_CODE:Int = 1
 
   val ROW_NUMBER:String = "row_number"
-  val ROW_CONDITION:String = "row_number == 1"
+
+
+  val EVENT_TIMESTAMP_OPTION:String= "event_timestamp"
 
 }
