@@ -1,7 +1,7 @@
 package com.igniteplus.data.pipeline.cleanseData
 
 
-import com.igniteplus.data.pipeline.constants.ApplicationConstants.{ROW_CONDITION, ROW_NUMBER}
+import com.igniteplus.data.pipeline.constants.ApplicationConstants.{ROW_NUMBER}
 import com.igniteplus.data.pipeline.service.FileWriterService.writeFile
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.expressions.Window
