@@ -22,5 +22,7 @@ object PipelineService
     /***************** NULL VALUE CHECKING *********************************************************** */
     val nullValueCheckClickStreamDf: DataFrame = filterRemoveNull(clickStreamDataDf, COLUMNS_PRIMARY_KEY_CLICKSTREAM, CLICKSTREAM_NULL_ROWS_DATASET_PATH, WRITE_FORMAT)
     val nullValueCheckItemDf: DataFrame = filterRemoveNull(itemDataDf, COLUMNS_PRIMARY_KEY_ITEM, ITEM_NULL_ROWS_DATASET_PATH, WRITE_FORMAT)
+
+
   }
 }
