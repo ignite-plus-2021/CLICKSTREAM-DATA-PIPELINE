@@ -48,10 +48,10 @@ object Cleanser {
    * @param fileFormat     specifies format of the file
    * @return notNullDf which is the data free from null values
    */
-  def filterRemoveNull(df: DataFrame, primaryKeyColumns: Seq[String], filePath: String, fileFormat: String): DataFrame = {
+  def filterRemoveNull(df: DataFrame, primaryColumns: Seq[String], filePath: String, fileFormat: String): DataFrame = {
     var nullDf: DataFrame = df
     var notNullDf: DataFrame = df
-    for (i <- primaryKeyColumns) {
+    for (i <- primaryColumns) {
       nullDf = df.filter(df(i).isNull)
       notNullDf = df.filter(df(i).isNotNull)
     }
@@ -59,7 +59,6 @@ object Cleanser {
       writeFile(nullDf, fileFormat, filePath)
     notNullDf
   }
-
 
   /**
    * Function to remove duplicates from the data
