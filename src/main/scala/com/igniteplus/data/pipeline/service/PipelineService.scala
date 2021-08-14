@@ -17,14 +17,10 @@ object PipelineService
     val clickStreamDataDf: DataFrame = readFile(CLICKSTREAM_DATASET, READ_FORMAT)
     /**************** READING OF ITEM DATA *************************************************************/
     val itemDataDf: DataFrame = readFile(ITEM_DATASET, READ_FORMAT)
-    println("Read the data")
-    scala.io.StdIn.readLine()
 
     /************************** CHANGE DATATYPE *****************************************************/
     val changedDatatypeClickStreamDataDf = dataTypeValidation(clickStreamDataDf, COLUMNS_VALID_DATATYPE_CLICKSTREAM,NEW_DATATYPE_CLICKSTREAM)
     val changedDatatype = dataTypeValidation(itemDataDf, COLUMNS_VALID_DATATYPE_ITEM, NEW_DATATYPE_ITEM)
-    println("Change data type")
-    scala.io.StdIn.readLine()
 
     /************************** TRIM COLUMNS ********************************************************/
     val trimmedClickStreamDataDf = trimColumn(changedDatatypeClickStreamDataDf)
@@ -34,20 +30,15 @@ object PipelineService
 
     val nullValueCheckClickStreamDataDf: DataFrame = filterRemoveNull(trimmedClickStreamDataDf, COLUMNS_PRIMARY_KEY_CLICKSTREAM, CLICKSTREAM_NULL_ROWS_DATASET_PATH, WRITE_FORMAT)
     val nullValueCheckItemDf: DataFrame = filterRemoveNull(trimmedItemDf, COLUMNS_PRIMARY_KEY_ITEM, ITEM_NULL_ROWS_DATASET_PATH, WRITE_FORMAT)
-    println("Null values removed")
-    scala.io.StdIn.readLine()
 
     /**************************** DEDUPLICAION *******************************************************************/
     val dedupliactedClickStreamDataDf = removeDuplicates(nullValueCheckClickStreamDataDf,COLUMNS_PRIMARY_KEY_CLICKSTREAM,Some(EVENT_TIMESTAMP_OPTION))
     val deduplicatedItemDf = removeDuplicates(nullValueCheckItemDf,COLUMNS_PRIMARY_KEY_ITEM,None)
 
-   // println("Deduplication")
-   // scala.io.StdIn.readLine()
     /*************************** CHANGE TO LOWER CASE ***************************************************************/
     val lowerCaseClickStreamDataDf = toLowerCase(dedupliactedClickStreamDataDf,COLUMNS_LOWERCASE_CLICKSTREAM)
     val lowerCaseItemDf = toLowerCase(deduplicatedItemDf,COLUMNS_LOWERCASE_ITEM)
-    println("The last line and the code will stop")
-    scala.io.StdIn.readLine()
+
 
 
   }

@@ -35,15 +35,13 @@ object Cleanser {
   def trimColumn(df: DataFrame): DataFrame = {
     var trimmedDF: DataFrame = df
     for (n <- df.columns) trimmedDF = df.withColumn(n, trim(col(n)))
-    trimmedDF.show()
     trimmedDF
   }
 
   /**
    * Function to remove and filter null values and write null values to separate file
-   *
    * @param df             the dataframe taken as an input
-   * @param primaryKeyColumns sequence of primary key columns
+   * @param primaryColumns sequence of primary key columns
    * @param filePath       the location where null values will be written
    * @param fileFormat     specifies format of the file
    * @return notNullDf which is the data free from null values
@@ -62,7 +60,6 @@ object Cleanser {
 
   /**
    * Function to remove duplicates from the data
-   *
    * @param df the dataframe
    * @param primaryKeyColumns sequence of primary key columns of the df dataframe
    * @param orderByColumn
@@ -87,7 +84,6 @@ object Cleanser {
 
   /**
    * CONVERT TO LOWER CASE
-   *
    * @param df the dataframe
    * @param columnTobeModified Seq of columns
    * @return a modified Dataframe with modified case
