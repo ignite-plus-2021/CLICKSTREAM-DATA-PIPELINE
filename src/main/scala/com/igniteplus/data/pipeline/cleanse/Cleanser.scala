@@ -11,8 +11,7 @@ import org.apache.spark.sql.functions._
 object Cleanser {
 
   /**
-   * Function to to change the data type of the columns to correct datatype
-   *
+   * FUNCTION TO CHANGE THE DATATYPE
    * @param df the dataframe
    * @param columnNames sequence of columns of the df dataframe
    * @param dataTypes   sequence of data types
@@ -30,7 +29,9 @@ object Cleanser {
   }
 
 
-  /** @param df the dataframe taken as an input
+  /**
+   * FUNCTION TO TRIM THE EXTRA SPACES
+   * @param df the dataframe taken as an input
    * @return dataframe with no whitespaces */
   def trimColumn(df: DataFrame): DataFrame = {
     var trimmedDF: DataFrame = df
@@ -39,7 +40,7 @@ object Cleanser {
   }
 
   /**
-   * Function to remove and filter null values and write null values to separate file
+   * FUNCTION TO CHECK AND REMOVE NULL VALUES
    * @param df             the dataframe taken as an input
    * @param primaryColumns sequence of primary key columns
    * @param filePath       the location where null values will be written
@@ -59,7 +60,7 @@ object Cleanser {
   }
 
   /**
-   * Function to remove duplicates from the data
+   * FUNCTION TO REMOVE DUPLICATES
    * @param df the dataframe
    * @param primaryKeyColumns sequence of primary key columns of the df dataframe
    * @param orderByColumn

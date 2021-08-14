@@ -27,7 +27,6 @@ object PipelineService
     val trimmedItemDf = trimColumn(changedDatatype)
 
     /***************** NULL VALUE CHECKING ************************************************************/
-
     val nullValueCheckClickStreamDataDf: DataFrame = filterRemoveNull(trimmedClickStreamDataDf, COLUMNS_PRIMARY_KEY_CLICKSTREAM, CLICKSTREAM_NULL_ROWS_DATASET_PATH, WRITE_FORMAT)
     val nullValueCheckItemDf: DataFrame = filterRemoveNull(trimmedItemDf, COLUMNS_PRIMARY_KEY_ITEM, ITEM_NULL_ROWS_DATASET_PATH, WRITE_FORMAT)
 
@@ -38,8 +37,6 @@ object PipelineService
     /*************************** CHANGE TO LOWER CASE ***************************************************************/
     val lowerCaseClickStreamDataDf = toLowerCase(dedupliactedClickStreamDataDf,COLUMNS_LOWERCASE_CLICKSTREAM)
     val lowerCaseItemDf = toLowerCase(deduplicatedItemDf,COLUMNS_LOWERCASE_ITEM)
-
-
 
   }
 }
