@@ -6,7 +6,6 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.flatspec.AnyFlatSpec
 
-
 class FileReaderServiceTest extends AnyFlatSpec with BeforeAndAfterAll with Helper {
 
   @transient var spark: SparkSession = _

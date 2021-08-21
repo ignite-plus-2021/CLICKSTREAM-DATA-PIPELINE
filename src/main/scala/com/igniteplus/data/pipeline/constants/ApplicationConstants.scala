@@ -66,7 +66,7 @@ object ApplicationConstants {
 
   val EVENT_TIMESTAMP_OPTION:String= "event_timestamp"
 
-  //Write to SQL DAtabase
+  //Write to SQL Database
   /** Write to SQL Database */
   val JDBC_DRIVER : String = "com.mysql.cj.jdbc.Driver"
   val USER_NAME : String = "root"
