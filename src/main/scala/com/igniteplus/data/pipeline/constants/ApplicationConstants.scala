@@ -66,4 +66,19 @@ object ApplicationConstants {
 
   val EVENT_TIMESTAMP_OPTION:String= "event_timestamp"
 
+  //Write to SQL DAtabase
+  /** Write to SQL Database */
+  val JDBC_DRIVER : String = "com.mysql.cj.jdbc.Driver"
+  val USER_NAME : String = "root"
+  val SQL_URL : String = "jdbc:mysql://localhost:3306/ignite"
+  val KEY_PASSWORD : String = "meghana"
+  val LOCATION_SQL_PASSWORD : String = "E:\\targetDEProduct_SQLPassword.txt"
+  val LOCATION_ENCRYPTED_PASSWORD : String = "credentials/SQL_password_file"
+  val TABLE_CLICKSTREAM_DATA : String = "CLICKSTREAM_DATA"
+  val TABLE_ITEM_DATA : String = "ITEM_DATA"
+  val KEY_TYPE : String = "JCEKS"
+  val KEY_LOCATION : String = "credentials/mykeystore.jks"
+  val CRYPTOGRAPHY_ALGORITHM : String = "AES"
+  val KEY_ALIAS : String = "mykey"
+
 }

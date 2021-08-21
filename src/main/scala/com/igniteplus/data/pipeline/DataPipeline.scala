@@ -11,26 +11,26 @@ import com.sun.org.slf4j.internal
 object DataPipeline extends Logging {
 
   def main(args : Array[String]) : Unit = {
-    
+
     val logger : internal.Logger = LoggerFactory.getLogger(this.getClass)
 
     try {
-           PipelineService.executePipeline()
-       }
+      PipelineService.executePipeline()
+    }
 
-   catch {
-     case ex : FileReadException =>
-       logError("File read exception",ex)
-       sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
+    catch {
+      case ex : FileReadException =>
+        logError("File read exception",ex)
+        sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
 
-     case ex: FileWriteException =>
-       logError("file write exception", ex)
-       sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
+      case ex: FileWriteException =>
+        logError("file write exception", ex)
+        sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
 
-     case ex: Exception =>
-       logError("Unknown exception",ex)
-       sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
-   }
+      case ex: Exception =>
+        logError("Unknown exception",ex)
+        sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
+    }
   }
-    
+
 }
