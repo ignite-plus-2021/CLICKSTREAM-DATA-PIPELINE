@@ -10,7 +10,13 @@ import javax.crypto.spec.SecretKeySpec
 
 object DbService
 {
-  def decryptUsingAESKey(encryptedData: String, key: Array[Byte]) : String = {
+  /**
+   * To perform decryption of SQl password
+   * @param encryptedData it is the encrypted SQL Password
+   * @param key specifies the key used for decryption
+   * @return returns the decrypted message
+   */
+  def decryptUsingAESKey(encryptedData : String, key : Array[Byte]) : String = {
     val secKey : SecretKeySpec = new SecretKeySpec(key,CRYPTOGRAPHY_ALGORITHM)
     val cipher : Cipher = Cipher.getInstance(CRYPTOGRAPHY_ALGORITHM)
     cipher.init(Cipher.DECRYPT_MODE,secKey)
@@ -18,6 +24,11 @@ object DbService
     val message : String = new String(newData)
     message
   }
+
+  /**
+   * Used to call encryption and decryption
+   * @return used for password decryption
+   */
   def securityEncryptionDecryption(): String = {
     val keyStore : KeyStore = KeyStore.getInstance(KEY_TYPE);
     val stream : FileInputStream = new FileInputStream(KEY_LOCATION)
@@ -28,6 +39,11 @@ object DbService
     decryptedData
   }
 
+  /**
+   * Function to write data int MySQL
+   * @param df the dataframe that needs to be written
+   * @param tableName the name of the table in My SQL
+   */
 
   def sqlWrite(df : DataFrame, tableName : String) : Unit = {
     val prop = new java.util.Properties

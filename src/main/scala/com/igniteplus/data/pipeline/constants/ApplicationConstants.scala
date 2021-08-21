@@ -81,4 +81,8 @@ object ApplicationConstants {
   val CRYPTOGRAPHY_ALGORITHM : String = "AES"
   val KEY_ALIAS : String = "mykey"
 
+  //Join data
+  val JOIN_KEY : String = "item_id"
+  val JOIN_TYPE : String = "left"
+
 }

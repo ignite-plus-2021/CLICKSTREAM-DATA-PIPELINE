@@ -4,15 +4,15 @@ import com.igniteplus.data.pipeline.constants.ApplicationConstants
 import com.igniteplus.data.pipeline.exception.{FileReadException, FileWriteException}
 import com.igniteplus.data.pipeline.service.{FileReaderService, PipelineService}
 import org.apache.spark.internal._
-import com.sun.org.slf4j.internal.LoggerFactory
-import com.sun.org.slf4j.internal
+//import com.sun.org.slf4j.internal.LoggerFactory
+//import com.sun.org.slf4j.internal
 
 
 object DataPipeline extends Logging {
 
   def main(args : Array[String]) : Unit = {
 
-    val logger : internal.Logger = LoggerFactory.getLogger(this.getClass)
+   // val logger : internal.Logger = LoggerFactory.getLogger(this.getClass)
 
     try {
       PipelineService.executePipeline()
