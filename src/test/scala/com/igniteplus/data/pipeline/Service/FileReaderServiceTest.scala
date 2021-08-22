@@ -8,10 +8,10 @@ import org.scalatest.flatspec.AnyFlatSpec
 
 class FileReaderServiceTest extends AnyFlatSpec with BeforeAndAfterAll with Helper {
 
-//  @transient var spark: SparkSession = _
+  @transient var spark: SparkSession = _
 
   override def beforeAll(): Unit = {
-   val spark = SparkSession.builder().appName("Tests").master("local").getOrCreate()
+    spark = SparkSession.builder().appName("Tests").master("local").getOrCreate()
   }
 
   "readFile() method" should "read data from the given location" in {

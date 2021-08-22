@@ -4,10 +4,8 @@ import com.igniteplus.data.pipeline.cleanse.Cleanser.{dataTypeValidation, filter
 import com.igniteplus.data.pipeline.constants.ApplicationConstants._
 import com.igniteplus.data.pipeline.service.DbService.sqlWrite
 import com.igniteplus.data.pipeline.service.FileReaderService.readFile
-import com.igniteplus.data.pipeline.service.FileWriterService.writeFile
 import com.igniteplus.data.pipeline.util.ApplicationUtil.createSparkSession
 import org.apache.spark.sql.DataFrame
-import com.igniteplus.data.pipeline.transformation.Transform._
 
 object PipelineService
 {
@@ -41,8 +39,5 @@ object PipelineService
     val lowerCaseClickStreamDataDf = toLowerCase(dedupliactedClickStreamDataDf,COLUMNS_LOWERCASE_CLICKSTREAM)
     val lowerCaseItemDf = toLowerCase(deduplicatedItemDf,COLUMNS_LOWERCASE_ITEM)
 
-    /************************JOIN DATAFRAMES ************************************************************************/
-    val jointDf : DataFrame = join(lowerCaseClickStreamDataDf,lowerCaseItemDf)
-    writeFile(jointDf,"csv","data/Test_Inputs")
   }
 }
