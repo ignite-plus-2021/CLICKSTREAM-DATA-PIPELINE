@@ -43,7 +43,7 @@ object PipelineService
     
     /*********************************** JOIN ***********************************************************************/
     val jointDf: DataFrame = JoinTransformation.joinTable(lowerCaseClickStreamDataDf, lowerCaseItemDf, JOIN_KEY, JOIN_TYPE_NAME)
-    jointDf.show()
+    
     /*********************************** WRITING TO STAGING TABLE***********************************************************************/
     sqlWrite(jointDf,TABLE_NAME,SQL_URL_STAGING)
 
