@@ -9,11 +9,11 @@ import org.scalatest.flatspec.AnyFlatSpec
 
 class CleanseTest extends AnyFlatSpec with BeforeAndAfterAll with Helper{
 
- // @transient var spark: SparkSession = _
+  @transient var spark: SparkSession = _
 
-//  override def beforeAll(): Unit = {
-//    spark = SparkSession.builder().appName("Tests").master("local").getOrCreate()
-//  }
+  override def beforeAll(): Unit = {
+    spark = SparkSession.builder().appName("Tests").master("local").getOrCreate()
+  }
 
   "removeDuplicates() method" should "remove the duplicates from the inputDF" in {
     val deDuplicatedFileTestDf : DataFrame = readFile(DEDUPLICATION_TEST_READ, FILE_FORMAT)(spark)
