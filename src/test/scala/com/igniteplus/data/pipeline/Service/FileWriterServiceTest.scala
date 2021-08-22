@@ -1,12 +1,16 @@
 package com.igniteplus.data.pipeline.Service
 
 import com.igniteplus.data.pipeline.Helper.Helper
+import com.igniteplus.data.pipeline.constants.ApplicationConstants.SPARK_CONF
 import com.igniteplus.data.pipeline.service.FileReaderService.readFile
 import com.igniteplus.data.pipeline.service.FileWriterService.writeFile
+import com.igniteplus.data.pipeline.util.ApplicationUtil.createSparkSession
 import org.apache.spark.sql.DataFrame
 import org.scalatest.flatspec.AnyFlatSpec
 
 class FileWriterServiceTest extends AnyFlatSpec with Helper{
+
+  val spark = createSparkSession(SPARK_CONF)
 
   val testDf : DataFrame = readFile(writeTestCaseInputPath,fileFormat)(spark)
   val testDfCount:Long = testDf.count()
