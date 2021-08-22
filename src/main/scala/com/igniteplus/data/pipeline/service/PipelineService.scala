@@ -36,8 +36,11 @@ object PipelineService
     val deduplicatedItemDf = removeDuplicates(nullValueCheckItemDf,COLUMNS_PRIMARY_KEY_ITEM,None)
 
     /*************************** CHANGE TO LOWER CASE ***************************************************************/
-    val lowerCaseClickStreamDataDf = toLowerCase(dedupliactedClickStreamDataDf,COLUMNS_LOWERCASE_CLICKSTREAM)
-    val lowerCaseItemDf = toLowerCase(deduplicatedItemDf,COLUMNS_LOWERCASE_ITEM)
+    val lowerCaseClickStreamDataDf: DataFrame = toLowerCase(dedupliactedClickStreamDataDf,COLUMNS_LOWERCASE_CLICKSTREAM)
+    val lowerCaseItemDf: DataFrame = toLowerCase(deduplicatedItemDf,COLUMNS_LOWERCASE_ITEM)
+    
+    /*********************************** JOIN ***********************************************************************/
+    val jointDf: DataFrame = JoinTransformation.join(lowerCaseClickStreamDataDf, lowerCaseItemDf, JOIN_KEY, JOIN_TYPE_NAME)
 
   }
 }

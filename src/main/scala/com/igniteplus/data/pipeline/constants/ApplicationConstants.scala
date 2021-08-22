@@ -65,6 +65,10 @@ object ApplicationConstants {
 
 
   val EVENT_TIMESTAMP_OPTION:String= "event_timestamp"
+  
+  //join
+  val JOIN_KEY: String = "item_id"
+  val JOIN_TYPE_NAME: String = "left"
 
   //Write to SQL Database
   /** Write to SQL Database */
