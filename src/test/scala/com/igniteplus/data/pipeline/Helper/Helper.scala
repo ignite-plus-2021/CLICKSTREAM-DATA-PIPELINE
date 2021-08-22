@@ -5,6 +5,8 @@ import com.igniteplus.data.pipeline.util.ApplicationUtil.createSparkSession
 
 trait Helper {
 
+  implicit val spark = createSparkSession(SPARK_CONF)
+
   /* Helpers for File Reader Service Test Case */
   val READ_LOCATION : String = "data/Test_Inputs/FileReaderServiceTestCaseInput.csv"
   val FILE_FORMAT : String = "csv"
@@ -12,7 +14,6 @@ trait Helper {
   val READ_WRONG_LOCATION : String = "data/Test_Inputs/FileReaderServiceTestCaseInp.csv"
 
   /* Helpers for File Writer Service Test Case */
-  implicit val spark = createSparkSession(SPARK_CONF)
   val writeTestCaseInputPath ="data/Test_Inputs/FileWriterServiceTestCaseInput.csv"
   val fileFormat = "csv"
   val writeTestCaseOutputPath = "data/Test_Outputs/FileWriterServiceTestCaseOutput.csv"
