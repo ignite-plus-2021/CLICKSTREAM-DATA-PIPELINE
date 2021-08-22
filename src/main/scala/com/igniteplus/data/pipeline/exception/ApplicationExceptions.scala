@@ -9,4 +9,6 @@ package com.igniteplus.data.pipeline.exception
 
   case class FileWriteException (message: String) extends ApplicationExceptions(message)
 
+  case class DqDuplicateCheckFail(message: String) extends ApplicationExceptions(message)
 
+  case class DqNullCheckFail(message: String) extends ApplicationExceptions(message)
