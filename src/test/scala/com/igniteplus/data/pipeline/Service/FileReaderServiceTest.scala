@@ -2,8 +2,7 @@ package com.igniteplus.data.pipeline.Service
 import com.igniteplus.data.pipeline.Helper.Helper
 import com.igniteplus.data.pipeline.exception.FileReadException
 import com.igniteplus.data.pipeline.service.FileReaderService.readFile
-import org.apache.spark.sql.{DataFrame, SparkSession}
-import org.scalatest.BeforeAndAfterAll
+import org.apache.spark.sql.{DataFrame}
 import org.scalatest.flatspec.AnyFlatSpec
 
 class FileReaderServiceTest extends AnyFlatSpec with Helper {
