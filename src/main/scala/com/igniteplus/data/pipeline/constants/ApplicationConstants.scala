@@ -30,6 +30,7 @@ object ApplicationConstants {
   val EVENT_TIMESTAMP: String = "event_timestamp"
   val SESSION_ID: String = "session_id"
   val ITEM_ID: String = "item_id"
+  val VISITOR_ID: String = "visitor_id"
   val REDIRECTION_SOURCE: String = "redirection_source"
 
   // column name Item
@@ -70,12 +71,24 @@ object ApplicationConstants {
   val JOIN_KEY: String = "item_id"
   val JOIN_TYPE_NAME: String = "left"
 
-  //Write to SQL Database
+  //Dq Check
+  val COLUMNS_CHECK_NULL_DQ_CHECK: Seq[String] = Seq(ApplicationConstants.SESSION_ID, ApplicationConstants.ITEM_ID,ApplicationConstants.VISITOR_ID)
+
+
   /** Write to SQL Database */
   val JDBC_DRIVER : String = "com.mysql.cj.jdbc.Driver"
   val USER_NAME : String = "root"
-  val SQL_URL : String = "jdbc:mysql://localhost:3306/ignite"
-  val KEY_PASSWORD : String = "meghana"
+  val KEY_PASSWORD : String = "4884"
+  //val SQL_URL : String = "jdbc:mysql://localhost:3306/ignite"
+
+  //In your mysql workbench, make two schema ignite_staging and ignite_prod with a table name "finaldata" in both the schema
+  //ignite_staging: database before dq check
+  //ignite_prod: database after dq check
+  //change your user and password accordingly
+  val SQL_URL_STAGING : String = "jdbc:mysql://localhost:3306/ignite_staging"
+  val SQL_URL_PROD : String = "jdbc:mysql://localhost:3306/ignite_prod"
+  val TABLE_NAME :String ="finaldata"
+
   val LOCATION_SQL_PASSWORD : String = "E:\\targetDEProduct_SQLPassword.txt"
   val LOCATION_ENCRYPTED_PASSWORD : String = "credentials/SQL_password_file"
   val TABLE_CLICKSTREAM_DATA : String = "CLICKSTREAM_DATA"

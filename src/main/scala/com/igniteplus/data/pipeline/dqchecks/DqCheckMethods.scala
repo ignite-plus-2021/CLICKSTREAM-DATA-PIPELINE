@@ -16,19 +16,13 @@ object DqCheckMethods {
       throw new DqNullCheckFail("The file contains nulls")
   }
 
-  def DqDuplicateCheck (df:DataFrame, KeyColumns : Seq[String], orderByCol: String = "") : Unit  = {
-    if( orderByCol.isEmpty)  {
-      val dfDropDuplicate = df.dropDuplicates(KeyColumns)
-      if(df.count()!=dfDropDuplicate.count())
-        throw new DqDuplicateCheckFail("The file contains duplicate")
-    }
-    else{
-      val windowSpec = Window.partitionBy(KeyColumns.map(col):_* ).orderBy(desc(orderByCol))
-      val dfDropDuplicate: DataFrame = df.withColumn(colName = ROW_NUMBER, row_number().over(windowSpec))
-        .filter(col(ROW_NUMBER) === 1).drop(ROW_NUMBER)
-      if(df.count()!=dfDropDuplicate.count())
-        throw new DqDuplicateCheckFail("The file contains duplicate")
-    }
+  def DqDuplicateCheck (df:DataFrame, KeyColumns : Seq[String], orderByCol: String ) : Unit    = {
+    val windowSpec = Window.partitionBy(KeyColumns.map(col):_* ).orderBy(desc(orderByCol))
+    val dfDropDuplicate: DataFrame = df.withColumn(colName = ROW_NUMBER, row_number().over(windowSpec))
+      .filter(col(ROW_NUMBER) === 1).drop(ROW_NUMBER)
+    if(df.count()!=dfDropDuplicate.count())
+      throw new DqDuplicateCheckFail("The file contains duplicate")
+
   }
 
 }
