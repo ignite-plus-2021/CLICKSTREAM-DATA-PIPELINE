@@ -8,8 +8,10 @@ import org.scalatest.flatspec.AnyFlatSpec
 
 class FileWriterServiceTest extends AnyFlatSpec with Helper{
 
+
+
   val testDf : DataFrame = readFile(writeTestCaseInputPath,fileFormat)(spark)
-  val testDfCount:Long = testDf.count()
+  val testDfCount : Long = testDf.count()
 
 
   "writeFile() method" should "write data to the given location" in {
