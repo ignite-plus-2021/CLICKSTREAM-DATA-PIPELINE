@@ -1,5 +1,6 @@
 package com.igniteplus.data.pipeline.Helper
 
+import com.igniteplus.data.pipeline.constants.ApplicationConstants
 import com.igniteplus.data.pipeline.constants.ApplicationConstants.SPARK_CONF
 import com.igniteplus.data.pipeline.util.ApplicationUtil.createSparkSession
 
@@ -29,4 +30,12 @@ trait Helper {
   val  INPUT_JOIN_ITEM : String = "data/Test_Inputs/JoinItemTestCaseInput.csv"
   val  JOIN_KEY : String = "item_id"
   val JOIN_TYPE : String = "left"
+
+  /* Helpers for Change Data type test case */
+  val CHANGE_DATATYPE_TEST_READ : String = "data/Test_Inputs/ChangeDataTypeTestCaseInput.csv"
+  val EVENT_TIMESTAMP:String = "timestamp"
+  val COLUMNS_VALID_DATATYPE_CLICKSTREAM : Seq[String] = Seq("event_timestamp")
+  val NEW_DATATYPE_CLICKSTREAM : Seq[String] = Seq("timestamp")
+
+
 }
