@@ -9,7 +9,7 @@ object ApplicationConstants {
   //SPARK_SESSION
   val SPARK_CONF_FILE_NAME = "spark.conf"
   val SPARK_CONF: SparkConf = getSparkConf(SPARK_CONF_FILE_NAME)
-  implicit val spark: SparkSession = createSparkSession(SPARK_CONF)
+
 
   //DATASET
   val CLICKSTREAM_DATASET: String = "data/Input/clickstream/clickstream_log.csv"

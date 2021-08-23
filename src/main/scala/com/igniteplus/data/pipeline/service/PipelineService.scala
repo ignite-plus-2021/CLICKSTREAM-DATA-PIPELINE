@@ -5,11 +5,11 @@ import com.igniteplus.data.pipeline.constants.ApplicationConstants._
 import com.igniteplus.data.pipeline.service.DbService.sqlWrite
 import com.igniteplus.data.pipeline.service.FileReaderService.readFile
 import com.igniteplus.data.pipeline.transform.JoinTransformation
-import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.{DataFrame, SparkSession}
 
 object PipelineService
 {
-  def executePipeline() : Unit = {
+  def executePipeline() (implicit spark:SparkSession) : Unit = {
 
 
 
