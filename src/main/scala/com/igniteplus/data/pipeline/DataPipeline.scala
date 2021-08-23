@@ -2,8 +2,8 @@ package com.igniteplus.data.pipeline
 
 import com.igniteplus.data.pipeline.constants.ApplicationConstants
 import com.igniteplus.data.pipeline.constants.ApplicationConstants.spark
-import com.igniteplus.data.pipeline.exception.{DqDuplicateCheckFail, DqNullCheckFail, FileReadException, FileWriteException}
-import com.igniteplus.data.pipeline.service.{DqCheckService, FileReaderService, PipelineService}
+import com.igniteplus.data.pipeline.exception.{DqDuplicateCheckException, DqNullCheckException, FileReadException, FileWriteException}
+import com.igniteplus.data.pipeline.service.{DqCheckService, PipelineService}
 import org.apache.spark.internal._
 import com.sun.org.slf4j.internal.LoggerFactory
 import com.sun.org.slf4j.internal
@@ -38,11 +38,11 @@ object DataPipeline extends Logging {
     }
 
     catch{
-      case e:DqNullCheckFail => {
+      case e:DqNullCheckException => {
         logError("DQ check failed",e)
         sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
       }
-      case e:DqDuplicateCheckFail => {
+      case e:DqDuplicateCheckException => {
         logError("DQ check failed",e)
         sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
       }
