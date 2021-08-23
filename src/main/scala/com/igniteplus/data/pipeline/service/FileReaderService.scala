@@ -6,11 +6,11 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 object FileReaderService {
   /**
    * Reads the contents of the file
-<<<<<<< HEAD
+
    * @param inputPath specifies the path from where the data is to read
-=======
+
    * @param inputPath specifies the inputPath from where the data is to read
->>>>>>> d16d0e1e2d4dd6a1932c04e4eb2bb38a31ee285e
+
    * @param fileFormat specifies the format of the file
    * @param spark
    * @return the contents read from the file

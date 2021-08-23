@@ -18,7 +18,7 @@ object Cleanser {
    * @return dataframe with updated data type
    */
   def dataTypeValidation(df: DataFrame, columnNames: Seq[String], dataTypes: Seq[String]): DataFrame = {
-    var dfChangedDataType = df
+    var dfChangedDataType:DataFrame = df
     for (i <- columnNames.indices) {
       if (dataTypes(i) == TIMESTAMP_DATATYPE)
         dfChangedDataType = dfChangedDataType.withColumn(columnNames(i), unix_timestamp(col(columnNames(i)), TTIMESTAMP_FORMAT).cast(TIMESTAMP_DATATYPE))

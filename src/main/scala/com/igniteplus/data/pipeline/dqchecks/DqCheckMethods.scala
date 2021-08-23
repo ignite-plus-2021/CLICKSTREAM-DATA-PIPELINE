@@ -8,20 +8,22 @@ import org.apache.spark.sql.functions.{col, desc, row_number}
 
 object DqCheckMethods {
 
-  def DqNullCheck(df: DataFrame, keyColumns: Seq[String]): Unit = {
+  def DqNullCheck(df: DataFrame, keyColumns: Seq[String]):Boolean = {
     var nullDf: DataFrame = df
     for (i <- keyColumns)
       nullDf = df.filter(df(i).isNull)
     if (nullDf.count() > 0)
-      throw new DqNullCheckException("The file contains nulls")
+      throw DqNullCheckException("The file contains nulls")
+    true
   }
 
-  def DqDuplicateCheck (df:DataFrame, KeyColumns : Seq[String], orderByCol: String ) : Unit    = {
+  def DqDuplicateCheck (df:DataFrame, KeyColumns : Seq[String], orderByCol: String ) :Boolean   = {
     val windowSpec = Window.partitionBy(KeyColumns.map(col):_* ).orderBy(desc(orderByCol))
     val dfDropDuplicate: DataFrame = df.withColumn(colName = ROW_NUMBER, row_number().over(windowSpec))
       .filter(col(ROW_NUMBER) === 1).drop(ROW_NUMBER)
     if(df.count()!=dfDropDuplicate.count())
-      throw new DqDuplicateCheckException("The file contains duplicate")
+      throw DqDuplicateCheckException("The file contains duplicate")
+    true
 
   }
 

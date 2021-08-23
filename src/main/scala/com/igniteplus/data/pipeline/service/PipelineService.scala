@@ -20,20 +20,20 @@ object PipelineService
     val itemDataDf: DataFrame = readFile(ITEM_DATASET, READ_FORMAT)
 
     /************************** CHANGE DATATYPE *****************************************************/
-    val changedDatatypeClickStreamDataDf = dataTypeValidation(clickStreamDataDf, COLUMNS_VALID_DATATYPE_CLICKSTREAM,NEW_DATATYPE_CLICKSTREAM)
-    val changedDatatype = dataTypeValidation(itemDataDf, COLUMNS_VALID_DATATYPE_ITEM, NEW_DATATYPE_ITEM)
+    val changedDatatypeClickStreamDataDf:DataFrame = dataTypeValidation(clickStreamDataDf, COLUMNS_VALID_DATATYPE_CLICKSTREAM,NEW_DATATYPE_CLICKSTREAM)
+    val changedDatatype:DataFrame = dataTypeValidation(itemDataDf, COLUMNS_VALID_DATATYPE_ITEM, NEW_DATATYPE_ITEM)
 
     /************************** TRIM COLUMNS ********************************************************/
-    val trimmedClickStreamDataDf = trimColumn(changedDatatypeClickStreamDataDf)
-    val trimmedItemDf = trimColumn(changedDatatype)
+    val trimmedClickStreamDataDf:DataFrame= trimColumn(changedDatatypeClickStreamDataDf)
+    val trimmedItemDf:DataFrame = trimColumn(changedDatatype)
 
     /***************** NULL VALUE CHECKING ************************************************************/
     val nullValueCheckClickStreamDataDf: DataFrame = filterRemoveNull(trimmedClickStreamDataDf, COLUMNS_PRIMARY_KEY_CLICKSTREAM, CLICKSTREAM_NULL_ROWS_DATASET_PATH, WRITE_FORMAT)
     val nullValueCheckItemDf: DataFrame = filterRemoveNull(trimmedItemDf, COLUMNS_PRIMARY_KEY_ITEM, ITEM_NULL_ROWS_DATASET_PATH, WRITE_FORMAT)
 
     /**************************** DEDUPLICAION *******************************************************************/
-    val dedupliactedClickStreamDataDf = removeDuplicates(nullValueCheckClickStreamDataDf,COLUMNS_PRIMARY_KEY_CLICKSTREAM,Some(EVENT_TIMESTAMP_OPTION))
-    val deduplicatedItemDf = removeDuplicates(nullValueCheckItemDf,COLUMNS_PRIMARY_KEY_ITEM,None)
+    val dedupliactedClickStreamDataDf:DataFrame = removeDuplicates(nullValueCheckClickStreamDataDf,COLUMNS_PRIMARY_KEY_CLICKSTREAM,Some(EVENT_TIMESTAMP_OPTION))
+    val deduplicatedItemDf:DataFrame = removeDuplicates(nullValueCheckItemDf,COLUMNS_PRIMARY_KEY_ITEM,None)
 
     /*************************** CHANGE TO LOWER CASE ***************************************************************/
     val lowerCaseClickStreamDataDf: DataFrame = toLowerCase(dedupliactedClickStreamDataDf,COLUMNS_LOWERCASE_CLICKSTREAM)
@@ -41,7 +41,7 @@ object PipelineService
     
     /*********************************** JOIN ***********************************************************************/
     val jointDf: DataFrame = JoinTransformation.joinTable(lowerCaseClickStreamDataDf, lowerCaseItemDf, JOIN_KEY, JOIN_TYPE_NAME)
-    jointDf.show(false)
+
     /*********************************** WRITING TO STAGING TABLE***********************************************************************/
     sqlWrite(jointDf,TABLE_NAME,SQL_URL_STAGING)
 

@@ -1,7 +1,7 @@
 package com.igniteplus.data.pipeline.constants
-import com.igniteplus.data.pipeline.util.ApplicationUtil.{createSparkSession, getSparkConf}
+import com.igniteplus.data.pipeline.util.ApplicationUtil.getSparkConf
 import org.apache.spark.SparkConf
-import org.apache.spark.sql.SparkSession
+
 
 
 object ApplicationConstants {
@@ -79,7 +79,6 @@ object ApplicationConstants {
   val JDBC_DRIVER : String = "com.mysql.cj.jdbc.Driver"
   val USER_NAME : String = "root"
   val KEY_PASSWORD : String = "4884"
-  //val SQL_URL : String = "jdbc:mysql://localhost:3306/ignite"
 
   //In your mysql workbench, make two schema ignite_staging and ignite_prod with a table name "finaldata" in both the schema
   //ignite_staging: database before dq check
