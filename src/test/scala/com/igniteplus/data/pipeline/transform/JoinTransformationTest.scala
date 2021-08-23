@@ -11,7 +11,7 @@ class JoinTransformationTest extends AnyFlatSpec with BeforeAndAfterAll with Hel
   "join() method" should "perform left join of two dataframes" in {
     val clickstremDf: DataFrame = readFile(INPUT_JOIN_CLICKSTREAM, FILE_FORMAT)
     val itemDf: DataFrame = readFile(INPUT_JOIN_ITEM, FILE_FORMAT)
-    val jointDf: DataFrame = joinTable(clickstremDf, itemDf,JOIN_KEY,JOIN_TYPE)
+    val jointDf: DataFrame = join(clickstremDf, itemDf,JOIN_KEY,JOIN_TYPE)
     val jointCount: Long = jointDf.count()
     val expectedCount: Long = 3
     assertResult(expectedCount)(jointCount)
