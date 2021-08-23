@@ -9,9 +9,9 @@ import org.scalatest.flatspec.AnyFlatSpec
 
 class JoinTransformationTest extends AnyFlatSpec with BeforeAndAfterAll with Helper {
   "join() method" should "perform left join of two dataframes" in {
-    val clickstremDf: DataFrame = readFile(INPUT_JOIN_CLICKSTREAM, FILE_FORMAT)
+    val clickstreamDf: DataFrame = readFile(INPUT_JOIN_CLICKSTREAM, FILE_FORMAT)
     val itemDf: DataFrame = readFile(INPUT_JOIN_ITEM, FILE_FORMAT)
-    val jointDf: DataFrame = join(clickstremDf, itemDf,JOIN_KEY,JOIN_TYPE)
+    val jointDf: DataFrame = joinTable(clickstreamDf, itemDf,JOIN_KEY,JOIN_TYPE)
     val jointCount: Long = jointDf.count()
     val expectedCount: Long = 3
     assertResult(expectedCount)(jointCount)
