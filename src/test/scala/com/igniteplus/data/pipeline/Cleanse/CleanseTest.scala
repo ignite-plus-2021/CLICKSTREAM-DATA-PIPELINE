@@ -1,19 +1,12 @@
 package com.igniteplus.data.pipeline.Cleanse
 
 import com.igniteplus.data.pipeline.Helper.Helper
-import com.igniteplus.data.pipeline.cleanse.Cleanser.removeDuplicates
+import com.igniteplus.data.pipeline.cleanse.Cleanser.{dataTypeValidation, removeDuplicates}
 import com.igniteplus.data.pipeline.service.FileReaderService.readFile
-import org.apache.spark.sql.{DataFrame, SparkSession}
-import org.scalatest.BeforeAndAfterAll
+import org.apache.spark.sql.DataFrame
 import org.scalatest.flatspec.AnyFlatSpec
 
-class CleanseTest extends AnyFlatSpec with BeforeAndAfterAll with Helper{
-
-  @transient var spark: SparkSession = _
-
-  override def beforeAll(): Unit = {
-    spark = SparkSession.builder().appName("Tests").master("local").getOrCreate()
-  }
+class CleanseTest extends AnyFlatSpec with Helper{
 
   "removeDuplicates() method" should "remove the duplicates from the inputDF" in {
     val deDuplicatedFileTestDf : DataFrame = readFile(DEDUPLICATION_TEST_READ, FILE_FORMAT)(spark)
@@ -23,9 +16,12 @@ class CleanseTest extends AnyFlatSpec with BeforeAndAfterAll with Helper{
     assertResult(expectedCount)(deDuplicatedCount)
   }
 
-
-  override def afterAll(): Unit = {
-    spark.stop()
+  "Function  changeDataType" should "Check the data type in the dataframe " in {
+    val sampleDF: DataFrame = readFile(CHANGE_DATATYPE_TEST_READ, fileFormat)
+    val changeDataTypeDF: DataFrame = dataTypeValidation(sampleDF, COLUMNS_VALID_DATATYPE_CLICKSTREAM, NEW_DATATYPE_CLICKSTREAM)
+    //val result: Boolean = (sampleDF.schema("event_timestamp").dataType === changeDataTypeDF.schema("event_timestamp").dataType)
+    val result: Boolean = (changeDataTypeDF.schema("event_timestamp").dataType.typeName === "timestamp")
+    assertResult(expected = true)(result)
   }
 
 }

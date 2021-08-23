@@ -2,7 +2,8 @@ package com.igniteplus.data.pipeline.service
 
 import com.google.common.io.BaseEncoding
 import com.igniteplus.data.pipeline.constants.ApplicationConstants._
-import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.{DataFrame, SparkSession}
+
 import java.io.FileInputStream
 import java.security.{Key, KeyStore}
 import javax.crypto.Cipher
@@ -28,13 +29,22 @@ object DbService
     decryptedData
   }
 
+  def sqlRead( tableName : String, url:String)(implicit spark: SparkSession) : DataFrame = {
+    val prop = new java.util.Properties
+    prop.setProperty("driver", JDBC_DRIVER)
+    prop.setProperty("user", USER_NAME)
+    prop.setProperty("password", KEY_PASSWORD)
+    spark.read.jdbc(url, tableName, prop)
+  }
 
-  def sqlWrite(df : DataFrame, tableName : String) : Unit = {
+
+  def sqlWrite(df : DataFrame, tableName : String,url:String) : Unit = {
     val prop = new java.util.Properties
     prop.setProperty("driver", JDBC_DRIVER)
     prop.setProperty("user", USER_NAME)
     prop.setProperty("password", securityEncryptionDecryption())
-    val url = SQL_URL
     df.write.mode("overwrite").jdbc(url, tableName, prop)
   }
+
+
 }

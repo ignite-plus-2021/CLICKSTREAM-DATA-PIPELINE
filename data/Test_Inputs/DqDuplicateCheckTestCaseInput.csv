@@ -1,0 +1,6 @@
+item_id,event_timestamp,device_type,session_id,visitor_id,redirection_source,item_price,product_type,department_name
+H6156,2020-11-15 09:07:00,android,B000092,C2146,facebook,313.5,J622,furniture
+G0796,2020-11-15 14:39:00,android,B000847,F5021,google,1792.0,E620,apps & games
+C3356,2020-11-15 18:10:00,android,B005093,F8161,linkedin,1152.0,I137,clothing & accessories
+H6156,2020-11-15 09:07:00,android,B000092,C2146,facebook,313.5,J622,furniture
+B9063,2020-11-15 14:07:00,android,B019311,B5497,google,2374.0,D062,books
