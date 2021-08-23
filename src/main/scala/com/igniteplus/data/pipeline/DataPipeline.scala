@@ -21,6 +21,7 @@ object DataPipeline extends Logging {
 
     try {
       PipelineService.executePipeline()
+      DqCheckService.executeDqCheck()
     }
 
     catch {
@@ -32,25 +33,23 @@ object DataPipeline extends Logging {
         logError("file write exception", ex)
         sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
 
+      case ex:DqNullCheckException => {
+        logError("DQ check failed",ex)
+        sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
+      }
+      case ex:DqDuplicateCheckException => {
+        logError("DQ check failed",ex)
+        sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
+      }
+
       case ex: Exception =>
         logError("Unknown exception",ex)
         sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
     }
 
-    try{
-      DqCheckService.executeDqCheck()
-    }
-
-    catch{
-      case e:DqNullCheckException => {
-        logError("DQ check failed",e)
-        sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
-      }
-      case e:DqDuplicateCheckException => {
-        logError("DQ check failed",e)
-        sys.exit(ApplicationConstants.FAILURE_EXIT_CODE)
-      }
-    }
+   finally {
+     spark.stop()
+   }
 
   }
 
