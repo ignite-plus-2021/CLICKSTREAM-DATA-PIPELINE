@@ -2,16 +2,19 @@ package com.igniteplus.data.pipeline.dqchecks
 
 import com.igniteplus.data.pipeline.constants.ApplicationConstants.ROW_NUMBER
 import com.igniteplus.data.pipeline.exception.{DqDuplicateCheckException, DqNullCheckException}
-import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.{Column, DataFrame}
 import org.apache.spark.sql.expressions.Window
-import org.apache.spark.sql.functions.{col, desc, row_number}
+import org.apache.spark.sql.functions.{col, desc, row_number, when}
 
 object DqCheckMethods {
 
   def DqNullCheck(df: DataFrame, keyColumns: Seq[String]):Boolean = {
-    var nullDf: DataFrame = df
-    for (i <- keyColumns)
-      nullDf = df.filter(df(i).isNull)
+    val columnNames:Seq[Column] = keyColumns.map(ex => col(ex))
+    val condition:Column = columnNames.map(ex => ex.isNull).reduce(_||_)
+    val dfCheckNullKeyRows:DataFrame = df.withColumn("nullFlag" , when(condition,value = "true").otherwise(value = "false"))
+
+    val  nullDf:DataFrame = dfCheckNullKeyRows.filter(dfCheckNullKeyRows("nullFlag")==="true")
+
     if (nullDf.count() > 0)
       throw DqNullCheckException("The file contains nulls")
     true

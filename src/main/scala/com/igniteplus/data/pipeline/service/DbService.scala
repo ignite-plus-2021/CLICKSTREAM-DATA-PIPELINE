@@ -6,6 +6,7 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 
 import java.io.FileInputStream
 import java.security.{Key, KeyStore}
+import java.util.Properties
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
 
@@ -30,7 +31,7 @@ object DbService
   }
 
   def sqlRead( tableName : String, url:String)(implicit spark: SparkSession) : DataFrame = {
-    val prop = new java.util.Properties
+    val prop:Properties = new java.util.Properties
     prop.setProperty("driver", JDBC_DRIVER)
     prop.setProperty("user", USER_NAME)
     prop.setProperty("password", KEY_PASSWORD)
@@ -39,7 +40,7 @@ object DbService
 
 
   def sqlWrite(df : DataFrame, tableName : String,url:String) : Unit = {
-    val prop = new java.util.Properties
+    val prop:Properties = new java.util.Properties
     prop.setProperty("driver", JDBC_DRIVER)
     prop.setProperty("user", USER_NAME)
     prop.setProperty("password", securityEncryptionDecryption())
