@@ -21,8 +21,9 @@ class CleanseTest extends AnyFlatSpec with Helper{
       ("30385","11/15/2020 15:24","android","B000078","I7099","D8142","google")
     ).toDF("id","event_timestamp","device_type","session_id","visitor_id","item_id","redirection_source")
     val resultantDF : DataFrame = expectedDF.except(deDuplicatedDF)
-    val output : Boolean = resultantDF.head(0).isEmpty
-    assertResult(true)(output)
+    val output : Long = resultantDF.count()
+    val expectedCount : Long = 0
+    assertResult(expectedCount)(output)
   }
 
   "Function  changeDataType" should "Check the data type in the dataframe " in {
