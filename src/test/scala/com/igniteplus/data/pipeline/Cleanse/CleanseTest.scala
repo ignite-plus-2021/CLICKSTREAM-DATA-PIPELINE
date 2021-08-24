@@ -7,13 +7,22 @@ import org.apache.spark.sql.DataFrame
 import org.scalatest.flatspec.AnyFlatSpec
 
 class CleanseTest extends AnyFlatSpec with Helper{
-
-  "removeDuplicates() method" should "remove the duplicates from the inputDF" in {
-    val deDuplicatedFileTestDf : DataFrame = readFile(DEDUPLICATION_TEST_READ, FILE_FORMAT)(spark)
+    "removeDuplicates() method" should "remove the duplicates from the inputDF" in {
+    import spark.implicits._
+    val deDuplicatedFileTestDf : DataFrame = Seq(
+      ("29839","11/15/2020 15:11","android","B000078","I7099","B17543","GOOGLE"),
+      ("30504","11/15/2020 15:27","android","B000078","I7099","B17543","LinkedIn"),
+      ("30334","11/15/2020 15:23","android","B000078","I7099","B17543","Youtube"),
+      ("30385","11/15/2020 15:24","android","B000078","I7099","D8142","google")
+    ).toDF("id","event_timestamp","device_type","session_id","visitor_id","item_id","redirection_source")
     val deDuplicatedDF : DataFrame = removeDuplicates(deDuplicatedFileTestDf,PRIMARY_KEY_COLUMNS_CLICKSTREAM_DATA,Some(ORDER_BY_COLUMN))
-    val deDuplicatedCount : Long = deDuplicatedDF.count()
-    val expectedCount : Long = 2
-    assertResult(expectedCount)(deDuplicatedCount)
+    val expectedDF : DataFrame = Seq(
+      ("30504","11/15/2020 15:27","android","B000078","I7099","B17543","LinkedIn"),
+      ("30385","11/15/2020 15:24","android","B000078","I7099","D8142","google")
+    ).toDF("id","event_timestamp","device_type","session_id","visitor_id","item_id","redirection_source")
+    val resultantDF : DataFrame = expectedDF.except(deDuplicatedDF)
+    val output : Boolean = resultantDF.head(0).isEmpty
+    assertResult(true)(output)
   }
 
   "Function  changeDataType" should "Check the data type in the dataframe " in {
