@@ -27,14 +27,9 @@ class JoinTransformationTest extends AnyFlatSpec with Helper{
      ("B29093","30334","11/15/2020 15:23","android","B000078","I7099","Youtube","409.5","H872","Furniture")
    ) .toDF("item_id","id","event_timestamp","device_type","session_id","visitor_id","redirection_source","item_price","product_type","department_name")
     val resultDf : DataFrame = expectedDf.except(jointDf)
-<<<<<<< HEAD
-
-    val actual : Boolean = resultDf.head(1).isEmpty
-    assertResult(true)(actual)
-=======
     val actual : Long= resultDf.count()
     val expected : Long = 0
     assertResult(expected)(actual)
->>>>>>> f425603872c5dfaab17430abc498f8e3b308cb73
+
   }
 }
