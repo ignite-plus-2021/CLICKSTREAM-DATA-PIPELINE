@@ -48,6 +48,7 @@ object DataPipeline extends Logging {
     }
 
    finally {
+     println("Finally Exiting...")
      spark.stop()
    }
 

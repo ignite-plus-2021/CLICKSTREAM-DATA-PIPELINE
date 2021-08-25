@@ -3,7 +3,7 @@ package com.igniteplus.data.pipeline.cleanse
 
 import com.igniteplus.data.pipeline.constants.ApplicationConstants.{ROW_NUMBER, TIMESTAMP_DATATYPE, TTIMESTAMP_FORMAT}
 import com.igniteplus.data.pipeline.service.FileWriterService.writeFile
-import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.{Column, DataFrame}
 import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.functions._
 
@@ -48,12 +48,14 @@ object Cleanser {
    * @return notNullDf which is the data free from null values
    */
   def filterRemoveNull(df: DataFrame, primaryColumns: Seq[String], filePath: String, fileFormat: String): DataFrame = {
-    var nullDf: DataFrame = df
-    var notNullDf: DataFrame = df
-    for (i <- primaryColumns) {
-      nullDf = df.filter(df(i).isNull)
-      notNullDf = df.filter(df(i).isNotNull)
-    }
+    val columnNames:Seq[Column] = primaryColumns.map(ex => col(ex))
+    val condition:Column = columnNames.map(ex => ex.isNull).reduce(_||_)
+    val dfCheckNullKeyRows:DataFrame = df.withColumn("nullFlag" , when(condition,value = "true").otherwise(value = "false"))
+
+    /** filter out all Null row in a dataframe,say nullDf */
+    val  nullDf:DataFrame = dfCheckNullKeyRows.filter(dfCheckNullKeyRows("nullFlag")==="true")
+    val  notNullDf:DataFrame = dfCheckNullKeyRows.filter(dfCheckNullKeyRows("nullFlag")==="false").drop("nullFlag")
+
     if (nullDf.count() > 0)
       writeFile(nullDf, fileFormat, filePath)
     notNullDf
