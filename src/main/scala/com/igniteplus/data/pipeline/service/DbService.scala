@@ -34,7 +34,7 @@ object DbService
     val prop:Properties = new java.util.Properties
     prop.setProperty("driver", JDBC_DRIVER)
     prop.setProperty("user", USER_NAME)
-    prop.setProperty("password", KEY_PASSWORD)
+    prop.setProperty("password", "12345")
     spark.read.jdbc(url, tableName, prop)
   }
 
@@ -43,7 +43,7 @@ object DbService
     val prop:Properties = new java.util.Properties
     prop.setProperty("driver", JDBC_DRIVER)
     prop.setProperty("user", USER_NAME)
-    prop.setProperty("password", securityEncryptionDecryption())
+    prop.setProperty("password", "12345")
     df.write.mode("overwrite").jdbc(url, tableName, prop)
   }
 

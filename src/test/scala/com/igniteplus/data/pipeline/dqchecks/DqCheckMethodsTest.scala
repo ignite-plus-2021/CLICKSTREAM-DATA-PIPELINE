@@ -12,7 +12,8 @@ class DqCheckMethodsTest extends AnyFlatSpec with Helper {
     import spark.implicits._
 
     val data = Seq(("H6156", "2020-11-15 09:07:00", "android", null, "C2146", "facebook", "313.5", "J622", "furniture"),
-      (null, "2020-11-15 14:39:00", "android", "B000847", "F5021", "google", "1792.0", "E620", "apps & games"))
+      (null, "2020-11-15 14:39:00", "android", "B000847", "F5021", "google", "1792.0", "E620", "apps & games"),
+      ("", "2020-11-15 14:39:00", "android", "B000847", "F5021", "google", "1792.0", "E620", "apps & games"))
 
     val sampleDF: DataFrame = data.toDF("item_id", "event_timestamp", "device_type", "session_id", "visitor_id", "redirection_source", "item_price", "product_type", "department_name")
 
@@ -35,5 +36,5 @@ class DqCheckMethodsTest extends AnyFlatSpec with Helper {
     }
   }
 
-  
+
 }
