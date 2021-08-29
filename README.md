@@ -1,4 +1,4 @@
-#Clickstream Data Pipeline
+# Clickstream Data Pipeline
 
 _Contains code and other configurations required to process clickstream data_
 

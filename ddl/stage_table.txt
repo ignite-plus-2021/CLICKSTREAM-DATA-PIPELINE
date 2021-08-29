@@ -1,4 +1,4 @@
-CREATE TABLE `ignite_stage`.`clickstream` (
+CREATE TABLE `ignite_staging`.`clickstream` (
   `item_id` VARCHAR(10)  NULL,
   `event_timestamp` TIMESTAMP(6) NULL,
   `device_type` VARCHAR(20) NULL,
