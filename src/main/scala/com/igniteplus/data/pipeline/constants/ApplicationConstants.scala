@@ -60,6 +60,7 @@ object ApplicationConstants {
   val COLUMNS_LOWERCASE_ITEM : Seq[String] = Seq(ApplicationConstants.DEPARTMENT_NAME)
 
   val FAILURE_EXIT_CODE :Int = 1
+  val SUCCESS_EXIT_CODE:Int = 0
 
   val ROW_NUMBER :String = "row_number"
   val ROW_CONDITION : String = "row_number == 1"

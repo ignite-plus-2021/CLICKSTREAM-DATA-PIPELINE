@@ -6,9 +6,10 @@ import com.igniteplus.data.pipeline.service.FileWriterService.writeFile
 import org.apache.spark.sql.{Column, DataFrame}
 import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.functions._
+import org.apache.spark.internal.Logging
 
 
-object Cleanser {
+object Cleanser extends Logging {
 
   /**
    * FUNCTION TO CHANGE THE DATATYPE
@@ -34,9 +35,9 @@ object Cleanser {
    * @param df the dataframe taken as an input
    * @return dataframe with no whitespaces */
   def trimColumn(df: DataFrame): DataFrame = {
-    var trimmedDF: DataFrame = df
-    for (n <- df.columns) trimmedDF = df.withColumn(n, trim(col(n)))
-    trimmedDF
+    var trimmedDf: DataFrame = df
+    for (n <- df.columns) trimmedDf = trimmedDf.withColumn(n, trim(col(n)))
+    trimmedDf
   }
 
   /**
@@ -50,14 +51,17 @@ object Cleanser {
   def filterRemoveNull(df: DataFrame, primaryColumns: Seq[String], filePath: String, fileFormat: String): DataFrame = {
     val columnNames:Seq[Column] = primaryColumns.map(ex => col(ex))
     val condition:Column = columnNames.map(ex => ex.isNull).reduce(_||_)
-    val dfCheckNullKeyRows:DataFrame = df.withColumn("nullFlag" , when(condition,value = "true").otherwise(value = "false"))
+    val dfCheckNullKeyRows:DataFrame = df.withColumn("nullFlag" , when(condition,value = true).otherwise(value = false))
 
     /** filter out all Null row in a dataframe,say nullDf */
-    val  nullDf:DataFrame = dfCheckNullKeyRows.filter(dfCheckNullKeyRows("nullFlag")==="true")
-    val  notNullDf:DataFrame = dfCheckNullKeyRows.filter(dfCheckNullKeyRows("nullFlag")==="false").drop("nullFlag")
+    val  nullDf:DataFrame = dfCheckNullKeyRows.filter(dfCheckNullKeyRows("nullFlag")===true)
+    val  notNullDf:DataFrame = dfCheckNullKeyRows.filter(dfCheckNullKeyRows("nullFlag")===false).drop("nullFlag")
 
-    if (nullDf.count() > 0)
+    if (nullDf.count() > 0) {
+      logInfo("Number of null records found: " + nullDf.count())
       writeFile(nullDf, fileFormat, filePath)
+      logInfo(s"Null records written to $filePath")
+    }
     notNullDf
   }
 
@@ -74,11 +78,10 @@ object Cleanser {
                       ): DataFrame = {
 
     val dfDropDuplicates: DataFrame = orderByColumn match {
-      case Some(orderCol) => {
+      case Some(orderCol) =>
         val windowSpec = Window.partitionBy(primaryKeyColumns.map(col): _*).orderBy(desc(orderCol))
         df.withColumn(colName = ROW_NUMBER, row_number().over(windowSpec))
           .filter(col(ROW_NUMBER) === 1).drop(ROW_NUMBER)
-      }
       case _ => df.dropDuplicates(primaryKeyColumns)
     }
     dfDropDuplicates

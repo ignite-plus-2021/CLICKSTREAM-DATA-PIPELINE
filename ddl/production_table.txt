@@ -1,0 +1,10 @@
+CREATE TABLE `ignite_prod`.`clickstream` (
+    `item_id` VARCHAR(10)  NULL,
+    `event_timestamp` TIMESTAMP(6) NULL,
+    `device_type` VARCHAR(20) NULL,
+    `session_id` VARCHAR(10) NULL,
+    `visitor_id` VARCHAR(10) NULL,
+    `redirection_source` FLOAT NULL,
+    `finaldata` VARCHAR(20) NULL,
+    `department_name` VARCHAR(45) NULL,
+);
