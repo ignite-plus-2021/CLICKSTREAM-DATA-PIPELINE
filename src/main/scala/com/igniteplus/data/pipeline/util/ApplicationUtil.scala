@@ -7,7 +7,6 @@ import scala.collection.JavaConverters._
 import scala.io.Source
 
 object ApplicationUtil{
-
   /**
    * READING SPARK CONFIGURATIONS FROM A SEPERATE FILE
    * @param fileName where you've mentioned the spark configuration
@@ -30,5 +29,4 @@ object ApplicationUtil{
     implicit val spark:SparkSession = SparkSession.builder().config(sparkConfiguration).getOrCreate()
     spark
   }
-
 }

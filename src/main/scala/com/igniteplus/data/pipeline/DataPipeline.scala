@@ -21,9 +21,11 @@ object DataPipeline extends Logging {
       PipelineService.executePipeline()
       DqCheckService.executeDqCheck()
       exitCode = ApplicationConstants.SUCCESS_EXIT_CODE
+
     }
 
     catch {
+
       case ex : FileReadException =>
         logError("File read exception",ex)
 

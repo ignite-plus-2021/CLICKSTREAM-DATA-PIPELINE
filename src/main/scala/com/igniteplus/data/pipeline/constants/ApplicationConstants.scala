@@ -13,6 +13,7 @@ object ApplicationConstants {
 
   //DATASET
   val CLICKSTREAM_DATASET : String = "data/Input/clickstream/clickstream_log.csv"
+
   val ITEM_DATASET : String = "data/Input/item/item_data.csv"
   val INPUT_NULL_CLICKSTREAM_DATA : String = "data/Output/Pipeline-failures/NullClickstreamData"
   val INPUT_NULL_ITEM_DATA : String = "data/Output/Pipeline-failures/NullItemData"
@@ -55,6 +56,7 @@ object ApplicationConstants {
   val COLUMNS_PRIMARY_KEY_CLICKSTREAM : Seq[String] = Seq(ApplicationConstants.SESSION_ID,ApplicationConstants.ITEM_ID)
   val COLUMNS_PRIMARY_KEY_ITEM : Seq[String] = Seq(ApplicationConstants.ITEM_ID)
 
+
   //Lowercase column
   val COLUMNS_LOWERCASE_CLICKSTREAM : Seq[String] = Seq(ApplicationConstants.REDIRECTION_SOURCE)
   val COLUMNS_LOWERCASE_ITEM : Seq[String] = Seq(ApplicationConstants.DEPARTMENT_NAME)
@@ -73,13 +75,13 @@ object ApplicationConstants {
   val JOIN_TYPE_NAME : String = "left"
 
   //Dq Check
-  val COLUMNS_CHECK_NULL_DQ_CHECK : Seq[String] = Seq(ApplicationConstants.SESSION_ID, ApplicationConstants.ITEM_ID,ApplicationConstants.VISITOR_ID)
+  val COLUMNS_CHECK_NULL_DQ_CHECK : Seq[String] = Seq(ApplicationConstants.SESSION_ID, ApplicationConstants.ITEM_ID)
 
 
   /** Write to SQL Database */
   val JDBC_DRIVER : String = "com.mysql.cj.jdbc.Driver"
   val USER_NAME : String = "root"
-  val KEY_PASSWORD : String = "4884"
+  val KEY_PASSWORD : String = "meghana"
 
   //In your mysql workbench, make two schema ignite_staging and ignite_prod with a table name "finaldata" in both the schema
   //ignite_staging: database before dq check
@@ -89,13 +91,14 @@ object ApplicationConstants {
   val SQL_URL_PROD : String = "jdbc:mysql://localhost:3306/ignite_prod"
   val TABLE_NAME :String ="finaldata"
 
-  val LOCATION_SQL_PASSWORD : String = "E:\\targetDEProduct_SQLPassword.txt"
+  val LOCATION_SQL_PASSWORD : String = "D:\\TARGET_DE_PRODUCT\\SQL_PASSWORD.txt"
   val LOCATION_ENCRYPTED_PASSWORD : String = "credentials/SQL_password_file"
   val TABLE_CLICKSTREAM_DATA : String = "CLICKSTREAM_DATA"
   val TABLE_ITEM_DATA : String = "ITEM_DATA"
   val KEY_TYPE : String = "JCEKS"
-  val KEY_LOCATION : String = "credentials/mykeystore.jks"
+  val KEY_LOCATION : String = "\\D:\\mykeystore.jks"
   val CRYPTOGRAPHY_ALGORITHM : String = "AES"
   val KEY_ALIAS : String = "mykey"
+
 
 }

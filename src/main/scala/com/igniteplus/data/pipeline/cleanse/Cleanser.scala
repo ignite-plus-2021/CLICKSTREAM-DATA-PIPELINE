@@ -97,7 +97,7 @@ object Cleanser extends Logging {
   def toLowerCase(df: DataFrame, columnTobeModified: Seq[String]): DataFrame = {
     var dfLowerCase: DataFrame = df
     for (columnToModify <- columnTobeModified) {
-      dfLowerCase = dfLowerCase.withColumn(df(columnToModify).toString(), lower(col(df(columnToModify).toString())))
+      dfLowerCase = dfLowerCase.withColumn(columnToModify, lower(col(columnToModify)))
     }
     dfLowerCase
   }

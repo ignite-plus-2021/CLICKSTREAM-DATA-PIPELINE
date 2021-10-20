@@ -1,7 +1,8 @@
 package com.igniteplus.data.pipeline.service
 
-import com.igniteplus.data.pipeline.cleanse.Cleanser.{dataTypeValidation, filterRemoveNull, removeDuplicates, toLowerCase, trimColumn}
+import com.igniteplus.data.pipeline.cleanse.Cleanser._
 import com.igniteplus.data.pipeline.constants.ApplicationConstants._
+
 import com.igniteplus.data.pipeline.service.DbService.sqlWrite
 import com.igniteplus.data.pipeline.service.FileReaderService.readFile
 import com.igniteplus.data.pipeline.transform.JoinTransformation

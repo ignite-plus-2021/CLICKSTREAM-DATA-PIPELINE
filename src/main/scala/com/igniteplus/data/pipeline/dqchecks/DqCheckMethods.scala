@@ -12,9 +12,7 @@ object DqCheckMethods {
     val columnNames:Seq[Column] = keyColumns.map(ex => col(ex))
     val condition:Column = columnNames.map(ex => ex.isNull).reduce(_||_)
     val dfCheckNullKeyRows:DataFrame = df.withColumn("nullFlag" , when(condition,value = true).otherwise(value = false))
-
     val  nullDf:DataFrame = dfCheckNullKeyRows.filter(dfCheckNullKeyRows("nullFlag")===true)
-
     if (nullDf.count() > 0)
       throw DqNullCheckException("The file contains nulls")
     true

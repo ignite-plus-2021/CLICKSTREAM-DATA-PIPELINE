@@ -10,7 +10,7 @@ class FileWriterServiceTest extends AnyFlatSpec with Helper{
 
 
 
-  val testDf : DataFrame = readFile(writeTestCaseInputPath,fileFormat)(spark)
+  val testDf : DataFrame = readFile(writeTestCaseInputPath,fileFormat)
   val testDfCount : Long = testDf.count()
 
 
@@ -19,7 +19,7 @@ class FileWriterServiceTest extends AnyFlatSpec with Helper{
     if(testDfCount!=0)
     {
       writeFile(testDf,fileFormat,writeTestCaseOutputPath)
-      val readSampleOutputDf:DataFrame = readFile(writeTestCaseOutputPath,fileFormat)(spark)
+      val readSampleOutputDf:DataFrame = readFile(writeTestCaseOutputPath,fileFormat)
       val checkOutputFile = readSampleOutputDf.count()
       assertResult(testDfCount)(checkOutputFile)
     }

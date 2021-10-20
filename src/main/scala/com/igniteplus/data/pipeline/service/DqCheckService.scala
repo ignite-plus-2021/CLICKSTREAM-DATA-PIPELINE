@@ -28,5 +28,4 @@ object DqCheckService extends Logging {
       logInfo("Data write to production table complete.")
     }
   }
-
 }

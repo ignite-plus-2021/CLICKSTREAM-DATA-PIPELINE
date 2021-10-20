@@ -15,7 +15,6 @@ object FileWriterService {
       df.write.format(fileType)
         .option("header", "true")
         .mode("overwrite")
-        .option("sep", ",")
         .save(filePath)
     }
     catch {
